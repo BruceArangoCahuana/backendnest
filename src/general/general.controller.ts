@@ -2,7 +2,8 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { GeneralService } from './general.service';
 import { CreateGeneralDto } from './dto/create-general.dto';
 import { UpdateGeneralDto } from './dto/update-general.dto';
-
+import { ApiTags } from '@nestjs/swagger';
+@ApiTags('general')
 @Controller('general')
 export class GeneralController {
   constructor(private readonly generalService: GeneralService) {}

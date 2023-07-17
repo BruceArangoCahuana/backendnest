@@ -2,7 +2,8 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { SolcialnetworksService } from './solcialnetworks.service';
 import { CreateSolcialnetworkDto } from './dto/create-solcialnetwork.dto';
 import { UpdateSolcialnetworkDto } from './dto/update-solcialnetwork.dto';
-
+import { ApiTags } from '@nestjs/swagger';
+@ApiTags('solcialnetworks')
 @Controller('solcialnetworks')
 export class SolcialnetworksController {
   constructor(private readonly solcialnetworksService: SolcialnetworksService) {}
