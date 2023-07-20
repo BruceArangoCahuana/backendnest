@@ -1,15 +1,16 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
-import { User } from '../../users/entities/user.entity';
-@Entity()
+import { User } from '../../user/entities/user.entity';
+
+@Entity('informacion')
 export class Information {
   @PrimaryGeneratedColumn()
   idinformation: number;
-  @Column()
+  @Column({ unique: true })
   email: string;
-  @Column()
+  @Column({ length: 8 })
   cellphone: string;
   @Column()
   age: number;
-  @ManyToOne(() => User, (user) => user.iduser)
-  users: User;
+  @ManyToOne(() => User)
+  user: User;
 }

@@ -11,6 +11,7 @@ import { InformationService } from './information.service';
 import { CreateInformationDto } from './dto/create-information.dto';
 import { UpdateInformationDto } from './dto/update-information.dto';
 import { ApiTags } from '@nestjs/swagger';
+
 @ApiTags('information')
 @Controller('information')
 export class InformationController {
@@ -32,10 +33,7 @@ export class InformationController {
   }
 
   @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateInformationDto: UpdateInformationDto,
-  ) {
+  update(@Param('id') id: string, @Body() updateInformationDto: UpdateInformationDto) {
     return this.informationService.update(+id, updateInformationDto);
   }
 
