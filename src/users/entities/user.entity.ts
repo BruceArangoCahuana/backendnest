@@ -9,6 +9,8 @@ export class User {
   firstname: string;
   @Column()
   correo: string;
+  @Column({ type: 'longtext' })
+  pass: any;
   @Column()
   perfil: string;
   @Column()
