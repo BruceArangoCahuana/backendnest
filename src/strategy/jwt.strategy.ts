@@ -1,11 +1,11 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
-import { ExtractJwt, Strategy } from 'passport-jwt';
+import { ExtractJwt } from 'passport-jwt';
+import { Strategy } from 'passport-local';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../user/entities/user.entity';
 import { AuthRepository } from '../auth/auth.repository';
 import { ConfigService } from '@nestjs/config';
-import { JwtService } from '@nestjs/jwt';
 import { PayloadInterface } from '../auth/payload.interface';
 import { IResponse } from '../IResponse.interface';
 
@@ -15,19 +15,19 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     @InjectRepository(User)
     private readonly authRepository: AuthRepository,
     private readonly configService: ConfigService,
-    private readonly jwtService: JwtService,
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
-      secretOrKey: configService.get<string>('llavecita'),
+      secretOrKey: 'llavecita',
     });
   }
   async validate(payload: PayloadInterface): Promise<IResponse<any>> {
     try {
+      const { shortname } = payload;
       const user = await this.authRepository.findOne({
         where: {
-          shortname: payload.shortname,
+          shortname: shortname,
         },
       });
 

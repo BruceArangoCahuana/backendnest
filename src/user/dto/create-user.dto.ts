@@ -1,4 +1,4 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, MAX, MaxLength, MinLength } from 'class-validator';
 export class CreateUserDto {
   @IsNotEmpty({ message: 'campo requerido' })
   name: string;
@@ -6,6 +6,8 @@ export class CreateUserDto {
   firstname: string;
   @IsNotEmpty({ message: 'campo requerido' })
   shortname: string;
+  @MinLength(3, { message: 'el password debes er mayor a 3 caracteres' })
+  @MaxLength(8, { message: 'el password debes er menor a 8 caracteres' })
   @IsNotEmpty({ message: 'campo requerido' })
   pass: any;
 }

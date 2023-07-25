@@ -1,5 +1,11 @@
-import { Entity, Column, PrimaryGeneratedColumn, BeforeInsert, BeforeUpdate } from "typeorm";
-import{ hash} from 'bcrypt'
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  BeforeInsert,
+  BeforeUpdate,
+} from 'typeorm';
+import { hash } from 'bcrypt';
 @Entity({ name: 'usuario' })
 export class User {
   @PrimaryGeneratedColumn()

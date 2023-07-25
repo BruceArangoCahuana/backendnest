@@ -40,11 +40,20 @@ export class UserService {
 
   async findAll(): Promise<IResponse<any>> {
     try {
-      const usuario = await this.userRepository.find();
+      const usuario = await this.userRepository.find({
+        select: {
+          iduser: true,
+          name: true,
+          firstname: true,
+          shortname: true,
+        },
+      });
       return {
         code: '000',
         message: 'success',
-        data: usuario ? usuario : new User(),
+        data:{
+          message: 'Se registro correctamente',
+        },
       };
     } catch (e) {
       throw new InternalServerErrorException(e.message);

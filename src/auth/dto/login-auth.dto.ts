@@ -1,4 +1,4 @@
-import { IsNotEmpty, MaxLength, MinLength } from 'class-validator';
+import { IsNotEmpty } from 'class-validator';
 
 export class LoginAuthDto {
   @IsNotEmpty({ message: 'campo requerido' })

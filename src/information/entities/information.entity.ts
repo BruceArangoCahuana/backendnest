@@ -7,7 +7,7 @@ export class Information {
   idinformation: number;
   @Column({ unique: true })
   email: string;
-  @Column({ length: 8 })
+  @Column({ length: 10 })
   cellphone: string;
   @Column()
   age: number;
