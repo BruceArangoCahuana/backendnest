@@ -5,20 +5,23 @@ import {
   Body,
   Patch,
   Param,
-  Delete, Put
-} from "@nestjs/common";
+  Delete,
+  Put,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { InformationService } from './information.service';
 import { CreateInformationDto } from './dto/create-information.dto';
 import { UpdateInformationDto } from './dto/update-information.dto';
 import { ApiTags } from '@nestjs/swagger';
-import { IResponse } from "../IResponse.interface";
-import { Information } from "./entities/information.entity";
+import { IResponse } from '../IResponse.interface';
+import { Information } from './entities/information.entity';
 
 @ApiTags('information')
 @Controller('information')
 export class InformationController {
   constructor(private readonly informationService: InformationService) {}
-
+  @UsePipes(new ValidationPipe({ whitelist: true }))
   @Post('create')
   create(@Body() createInformationDto: CreateInformationDto) {
     return this.informationService.create(createInformationDto);
