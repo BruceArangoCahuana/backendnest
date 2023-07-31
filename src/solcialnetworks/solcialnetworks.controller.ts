@@ -5,8 +5,11 @@ import {
   Body,
   Patch,
   Param,
-  Delete, UsePipes, ValidationPipe
-} from "@nestjs/common";
+  Delete,
+  UsePipes,
+  ValidationPipe,
+  Put,
+} from '@nestjs/common';
 import { SolcialnetworksService } from './solcialnetworks.service';
 import { CreateSolcialnetworkDto } from './dto/create-solcialnetwork.dto';
 import { UpdateSolcialnetworkDto } from './dto/update-solcialnetwork.dto';
@@ -20,7 +23,7 @@ export class SolcialnetworksController {
   constructor(
     private readonly solcialnetworksService: SolcialnetworksService,
   ) {}
-  @UsePipes(new ValidationPipe({ whitelist: true }))
+
   @Post('/create')
   create(
     @Body() createSolcialnetworkDto: CreateSolcialnetworkDto,
@@ -38,11 +41,11 @@ export class SolcialnetworksController {
     return this.solcialnetworksService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(
     @Param('id') id: string,
     @Body() updateSolcialnetworkDto: UpdateSolcialnetworkDto,
-  ) {
+  ): Promise<IResponse<Solcialnetwork>> {
     return this.solcialnetworksService.update(+id, updateSolcialnetworkDto);
   }
 

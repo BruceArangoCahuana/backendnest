@@ -8,17 +8,19 @@ import {
   Delete,
   UsePipes,
   ValidationPipe,
+  Put,
 } from '@nestjs/common';
 import { ExperienceService } from './experience.service';
 import { CreateExperienceDto } from './dto/create-experience.dto';
 import { UpdateExperienceDto } from './dto/update-experience.dto';
 import { IResponse } from '../IResponse.interface';
 import { Experience } from './entities/experience.entity';
-
+import { ApiTags } from '@nestjs/swagger';
+@ApiTags('experience')
 @Controller('experience')
 export class ExperienceController {
   constructor(private readonly experienceService: ExperienceService) {}
-  @UsePipes(new ValidationPipe({ whitelist: true }))
+
   @Post('/create')
   create(
     @Body() createExperienceDto: CreateExperienceDto,
@@ -36,11 +38,11 @@ export class ExperienceController {
     return this.experienceService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(
     @Param('id') id: string,
     @Body() updateExperienceDto: UpdateExperienceDto,
-  ) {
+  ): Promise<IResponse<Experience>> {
     return this.experienceService.update(+id, updateExperienceDto);
   }
 

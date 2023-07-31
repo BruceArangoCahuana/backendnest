@@ -16,14 +16,25 @@ export class ExperienceService {
     createExperienceDto: CreateExperienceDto,
   ): Promise<IResponse<any>> {
     try {
-      const { job, abstract, start_date, final_date, user } =
-        createExperienceDto;
+      const {
+        job,
+        abstract,
+        start_date,
+        final_date,
+        company,
+        user,
+        actuality,
+        imagecompany,
+      } = createExperienceDto;
       const experience = new Experience();
       experience.job = job;
       experience.abstract = abstract;
       experience.start_date = start_date;
       experience.final_date = final_date;
+      experience.actuality = actuality;
       experience.user = user;
+      experience.company = company;
+      experience.imagecompany = imagecompany;
       await this.experienceRepository.save(experience);
       return {
         code: '000',
@@ -40,7 +51,9 @@ export class ExperienceService {
 
   async findAll(): Promise<IResponse<any>> {
     try {
-      const experience = await this.experienceRepository.find();
+      const experience = await this.experienceRepository.find({
+        order: { start_date: 'DESC' },
+      });
       return {
         code: '000',
         message: 'success',
@@ -56,8 +69,39 @@ export class ExperienceService {
     return `This action returns a #${id} experience`;
   }
 
-  update(id: number, updateExperienceDto: UpdateExperienceDto) {
-    return `This action updates a #${id} experience`;
+  async update(
+    id: number,
+    updateExperienceDto: UpdateExperienceDto,
+  ): Promise<IResponse<any>> {
+    try {
+      const existe = await this.experienceRepository.findOne({
+        where: {
+          idexperience: id,
+        },
+      });
+      if (!existe) {
+        return {
+          code: '001',
+          message: 'error',
+          data: {
+            message: 'not found',
+          },
+        };
+      }
+
+      const experienceUpdate = Object.assign(existe, updateExperienceDto);
+      await this.experienceRepository.save(experienceUpdate);
+      return {
+        code: '000',
+        message: 'success',
+        data: {
+          message: 'Se actulizo correctamente',
+        },
+      };
+    } catch (e) {
+      console.log(e);
+      throw new InternalServerErrorException(e.message);
+    }
   }
 
   remove(id: number) {

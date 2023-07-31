@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { SolcialnetworksModule } from './solcialnetworks/solcialnetworks.module';
 import { GeneralModule } from './general/general.module';
 import { ExperienceModule } from './experience/experience.module';
+import { SubgeneralModule } from './subgeneral/subgeneral.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -26,6 +27,7 @@ import { ExperienceModule } from './experience/experience.module';
     SolcialnetworksModule,
     GeneralModule,
     ExperienceModule,
+    SubgeneralModule,
   ],
   controllers: [AppController],
   providers: [AppService],

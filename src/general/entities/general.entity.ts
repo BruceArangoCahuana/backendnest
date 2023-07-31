@@ -7,8 +7,6 @@ export class General {
   idgeneral: number;
   @Column({ type: 'longtext' })
   abstract: any;
-  @Column({ type: 'longtext' })
-  subabstract: any;
   @ManyToOne(() => User)
   user: User;
 }

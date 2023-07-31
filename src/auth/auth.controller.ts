@@ -19,7 +19,7 @@ import { LoginAuthDto } from './dto/login-auth.dto';
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
-  @UsePipes(new ValidationPipe({ whitelist: true }))
+  @UsePipes(new ValidationPipe({ whitelist: false }))
   @Post('/new-user')
   create(@Body() createAuthDto: CreateAuthDto): Promise<IResponse<any>> {
     return this.authService.create(createAuthDto);

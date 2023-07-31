@@ -6,7 +6,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Solcialnetwork } from './entities/solcialnetwork.entity';
 import { Repository } from 'typeorm';
 
-
 @Injectable()
 export class SolcialnetworksService {
   constructor(
@@ -54,8 +53,34 @@ export class SolcialnetworksService {
     return `This action returns a #${id} solcialnetwork`;
   }
 
-  update(id: number, updateSolcialnetworkDto: UpdateSolcialnetworkDto) {
-    return `This action updates a #${id} solcialnetwork`;
+  async update(
+    id: number,
+    updateSolcialnetworkDto: UpdateSolcialnetworkDto,
+  ): Promise<IResponse<any>> {
+    try {
+      const existe = await this.socialRepository.findOne({
+        where: {
+          idsocialnetwor: id,
+        },
+      });
+      if (!existe) {
+        return {
+          code: '001',
+          message: 'error',
+          data: {
+            messge: 'Not found',
+          },
+        };
+      }
+      const socialnetworksUpdate = Object.assign(
+        existe,
+        updateSolcialnetworkDto,
+      );
+      await this.socialRepository.save(socialnetworksUpdate);
+    } catch (e) {
+      console.log(e);
+      throw new InternalServerErrorException(e.message);
+    }
   }
 
   remove(id: number) {

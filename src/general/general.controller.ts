@@ -7,8 +7,8 @@ import {
   Param,
   Delete,
   UsePipes,
-  ValidationPipe,
-} from '@nestjs/common';
+  ValidationPipe, Put
+} from "@nestjs/common";
 import { GeneralService } from './general.service';
 import { CreateGeneralDto } from './dto/create-general.dto';
 import { UpdateGeneralDto } from './dto/update-general.dto';
@@ -19,7 +19,7 @@ import { ApiTags } from '@nestjs/swagger';
 @Controller('general')
 export class GeneralController {
   constructor(private readonly generalService: GeneralService) {}
-  @UsePipes(new ValidationPipe({ whitelist: true }))
+
   @Post('/create')
   create(
     @Body() createGeneralDto: CreateGeneralDto,
@@ -37,8 +37,8 @@ export class GeneralController {
     return this.generalService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateGeneralDto: UpdateGeneralDto) {
+  @Put(':id')
+  update(@Param('id') id: string, @Body() updateGeneralDto: UpdateGeneralDto): Promise<IResponse<General>> {
     return this.generalService.update(+id, updateGeneralDto);
   }
 

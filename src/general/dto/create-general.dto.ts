@@ -9,11 +9,6 @@ export class CreateGeneralDto {
   @IsEmpty({ message: 'campo requerido' })
   abstract: any;
   @ApiProperty({
-    type: 'string',
-  })
-  @IsEmpty({ message: 'campo requerido' })
-  subabstract: any;
-  @ApiProperty({
     type: 'number',
   })
   @IsEmpty({ message: 'campo requerido' })

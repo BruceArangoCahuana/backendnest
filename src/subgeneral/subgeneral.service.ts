@@ -1,24 +1,26 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
-import { CreateGeneralDto } from './dto/create-general.dto';
-import { UpdateGeneralDto } from './dto/update-general.dto';
+import { CreateSubgeneralDto } from './dto/create-subgeneral.dto';
+import { UpdateSubgeneralDto } from './dto/update-subgeneral.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { General } from './entities/general.entity';
+import { Subgeneral } from './entities/subgeneral.entity';
 import { Repository } from 'typeorm';
 import { IResponse } from '../IResponse.interface';
 
 @Injectable()
-export class GeneralService {
+export class SubgeneralService {
   constructor(
-    @InjectRepository(General)
-    private readonly generalRepository: Repository<General>,
+    @InjectRepository(Subgeneral)
+    private readonly subgeneralRepository: Repository<Subgeneral>,
   ) {}
-  async create(createGeneralDto: CreateGeneralDto): Promise<IResponse<any>> {
+  async create(
+    createSubgeneralDto: CreateSubgeneralDto,
+  ): Promise<IResponse<any>> {
     try {
-      const { abstract, user } = createGeneralDto;
-      const generals = new General();
-      generals.abstract = abstract;
-      generals.user = user;
-      await this.generalRepository.save(generals);
+      const { abstrac, user } = createSubgeneralDto;
+      const subgenerals = new Subgeneral();
+      subgenerals.abstrac = abstrac;
+      subgenerals.user = user;
+      await this.subgeneralRepository.save(subgenerals);
       return {
         code: '000',
         message: 'success',
@@ -34,11 +36,11 @@ export class GeneralService {
 
   async findAll(): Promise<IResponse<any>> {
     try {
-      const generals = await this.generalRepository.find();
+      const subgeneral = await this.subgeneralRepository.find();
       return {
         code: '000',
         message: 'success',
-        data: generals ? generals : new General(),
+        data: subgeneral ? subgeneral : new Subgeneral(),
       };
     } catch (e) {
       console.log(e);
@@ -47,36 +49,36 @@ export class GeneralService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} general`;
+    return `This action returns a #${id} subgeneral`;
   }
 
   async update(
     id: number,
-    updateGeneralDto: UpdateGeneralDto,
+    updateSubgeneralDto: UpdateSubgeneralDto,
   ): Promise<IResponse<any>> {
     try {
-      const existe = await this.generalRepository.findOne({
+      const existe = await this.subgeneralRepository.findOne({
         where: {
-          idgeneral: id,
+          idsubgeneral: id,
         },
       });
+
       if (!existe) {
         return {
           code: '001',
           message: 'error',
           data: {
-            message: 'Not found',
+            message: 'not found',
           },
         };
       }
-
-      const updateGeneral = Object.assign(existe, updateGeneralDto);
-      await this.generalRepository.save(updateGeneral);
+      const updateSubgeneral = Object.assign(existe, updateSubgeneralDto);
+      await this.subgeneralRepository.save(updateSubgeneral);
       return {
         code: '000',
         message: 'success',
         data: {
-          message: 'se actulizo correctamente',
+          message: 'Se actulizo correctamente',
         },
       };
     } catch (e) {
@@ -86,6 +88,6 @@ export class GeneralService {
   }
 
   remove(id: number) {
-    return `This action removes a #${id} general`;
+    return `This action removes a #${id} subgeneral`;
   }
 }
