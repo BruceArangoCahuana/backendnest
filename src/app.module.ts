@@ -9,6 +9,8 @@ import { SolcialnetworksModule } from './solcialnetworks/solcialnetworks.module'
 import { GeneralModule } from './general/general.module';
 import { ExperienceModule } from './experience/experience.module';
 import { SubgeneralModule } from './subgeneral/subgeneral.module';
+import { StacksModule } from './stacks/stacks.module';
+import { StudiesModule } from './studies/studies.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -28,6 +30,8 @@ import { SubgeneralModule } from './subgeneral/subgeneral.module';
     GeneralModule,
     ExperienceModule,
     SubgeneralModule,
+    StacksModule,
+    StudiesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

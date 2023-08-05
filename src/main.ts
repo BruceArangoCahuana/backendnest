@@ -8,13 +8,14 @@ async function bootstrap() {
     .setTitle('Backend Portafolio')
     .setDescription('Documentacion de la api de portafolio')
     .setVersion('1.0')
-    .addTag('users')
     .addTag('information')
     .addTag('auth')
     .addTag('redesSociales')
     .addTag('general')
     .addTag('experience')
     .addTag('subgeneral')
+    .addTag('stacks')
+    .addTag('estudios')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
