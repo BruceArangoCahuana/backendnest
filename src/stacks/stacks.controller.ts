@@ -43,7 +43,7 @@ export class StacksController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: string): Promise<IResponse<Stack>> {
     return this.stacksService.remove(+id);
   }
 }

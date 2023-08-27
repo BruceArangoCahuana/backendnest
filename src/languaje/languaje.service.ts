@@ -1,25 +1,25 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
-import { CreateStackDto } from './dto/create-stack.dto';
-import { UpdateStackDto } from './dto/update-stack.dto';
+import { CreateLanguajeDto } from './dto/create-languaje.dto';
+import { UpdateLanguajeDto } from './dto/update-languaje.dto';
 import { IResponse } from '../IResponse.interface';
-import { Stack } from './entities/stack.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Languaje } from './entities/languaje.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
-export class StacksService {
+export class LanguajeService {
   constructor(
-    @InjectRepository(Stack)
-    private readonly stackRepository: Repository<Stack>,
+    @InjectRepository(Languaje)
+    private readonly languajeRepository: Repository<Languaje>,
   ) {}
-  async create(createStackDto: CreateStackDto): Promise<IResponse<any>> {
+  async create(createLanguajeDto: CreateLanguajeDto): Promise<IResponse<any>> {
     try {
-      const { name, porcentaje, user } = createStackDto;
-      const stacks = new Stack();
-      stacks.name = name;
-      stacks.porcentaje = porcentaje;
-      stacks.user = user;
-      await this.stackRepository.save(stacks);
+      const { name, porcentaje, user } = createLanguajeDto;
+      const newLangueaje = new Languaje();
+      newLangueaje.name = name;
+      newLangueaje.porcentaje = porcentaje;
+      newLangueaje.user = user;
+      await this.languajeRepository.save(newLangueaje);
       return {
         code: '000',
         message: 'success',
@@ -35,11 +35,11 @@ export class StacksService {
 
   async findAll(): Promise<IResponse<any>> {
     try {
-      const stack = await this.stackRepository.find();
+      const languaje = await this.languajeRepository.find();
       return {
         code: '000',
         message: 'success',
-        data: stack ? stack : new Stack(),
+        data: languaje ? languaje : new Languaje(),
       };
     } catch (e) {
       console.log(e);
@@ -48,19 +48,20 @@ export class StacksService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} stack`;
+    return `This action returns a #${id} languaje`;
   }
 
   async update(
     id: number,
-    updateStackDto: UpdateStackDto,
+    updateLanguajeDto: UpdateLanguajeDto,
   ): Promise<IResponse<any>> {
     try {
-      const existe = await this.stackRepository.findOne({
+      const existe = await this.languajeRepository.findOne({
         where: {
-          idstack: id,
+          idlanguaje: id,
         },
       });
+
       if (!existe) {
         return {
           code: '001',
@@ -70,8 +71,9 @@ export class StacksService {
           },
         };
       }
-      const stackUpdate = Object.assign(existe, updateStackDto);
-      await this.stackRepository.save(stackUpdate);
+
+      Object.assign(existe, updateLanguajeDto);
+      await this.languajeRepository.save(existe);
       return {
         code: '000',
         message: 'success',
@@ -85,14 +87,14 @@ export class StacksService {
     }
   }
 
-  async remove(id: number): Promise<IResponse<any>> {
+  async remove(id: number) {
     try {
-      const existe = await this.stackRepository.findOne({
+      const removeLanguaje = await this.languajeRepository.findOne({
         where: {
-          idstack: id,
+          idlanguaje: id,
         },
       });
-      await this.stackRepository.remove(existe);
+      await this.languajeRepository.remove(removeLanguaje);
       return {
         code: '000',
         message: 'success',

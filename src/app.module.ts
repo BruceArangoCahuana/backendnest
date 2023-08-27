@@ -11,6 +11,9 @@ import { ExperienceModule } from './experience/experience.module';
 import { SubgeneralModule } from './subgeneral/subgeneral.module';
 import { StacksModule } from './stacks/stacks.module';
 import { StudiesModule } from './studies/studies.module';
+import { LanguajeModule } from './languaje/languaje.module';
+import { ProyectModule } from './proyect/proyect.module';
+import { IconModule } from './icon/icon.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -32,6 +35,9 @@ import { StudiesModule } from './studies/studies.module';
     SubgeneralModule,
     StacksModule,
     StudiesModule,
+    LanguajeModule,
+    ProyectModule,
+    IconModule,
   ],
   controllers: [AppController],
   providers: [AppService],
