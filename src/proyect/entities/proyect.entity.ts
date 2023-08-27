@@ -1,5 +1,6 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { User } from '../../user/entities/user.entity';
+import { Icon } from "../../icon/entities/icon.entity";
 
 @Entity('proyectos')
 export class Proyect {
@@ -13,8 +14,8 @@ export class Proyect {
   pathurl: any;
   @Column({ type: 'text' })
   link: any;
-  @ManyToOne(() => Proyect)
-  proyect: Proyect;
+  @ManyToOne(() => Icon)
+  icon: Icon;
   @ManyToOne(() => User)
   user: User;
 }

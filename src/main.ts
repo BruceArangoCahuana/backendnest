@@ -17,6 +17,8 @@ async function bootstrap() {
     .addTag('stacks')
     .addTag('estudios')
     .addTag('languaje')
+    .addTag('icono')
+    .addTag('proyecto')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
